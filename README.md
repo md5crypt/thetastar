@@ -23,7 +23,7 @@ source emsdk_env.sh # set up env
 
 After that is *should* be a simple `make all` but emscripten changes their s*it so often that it probably will not work when you try it :)
 
-To build the demo first do a `npm install` and then `make all`
+To build the demo first do a `npm install` and then `make demo`
 
 ## Using the code
 
