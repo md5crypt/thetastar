@@ -133,6 +133,9 @@ async function main() {
         const goal = thetaStar.findClosest(end[0], end[1]);
         const timeStart = performance.now();
         const path = thetaStar.findPath(start, goal, opt);
+        if (path === null) {
+            throw new Error("path not found");
+        }
         samples.push(performance.now() - timeStart);
         const image = ctx.createImageData(currentImageData);
         image.data.set(currentImageData.data);
@@ -246,8 +249,7 @@ class ThetaStar {
         const env = {
             memory,
             malloc: size => heap.malloc(size),
-            free: ptr => heap.free(ptr),
-            memset: (ptr, value, size) => ((new Uint8Array(memory.buffer)).fill(value, ptr, ptr + size), ptr)
+            free: ptr => heap.free(ptr)
         };
         const callback = (result) => {
             const exports = result.instance.exports;
@@ -280,6 +282,9 @@ class ThetaStar {
             throw new Error("no image data loaded");
         }
         const ptr = this.exports.theta_star(this.imageData, start, goal, opt);
+        if (ptr == 0) {
+            return null;
+        }
         const u32 = new Uint32Array(this.memory);
         const path = [];
         let current = ptr / 4;

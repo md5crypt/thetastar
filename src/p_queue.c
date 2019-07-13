@@ -49,8 +49,9 @@ void p_queue_create(p_queue_t* queue, uint32_t size) {
 	queue->bottom = 0;
 	queue->items = (p_queue_item_t*)memory;
 	queue->map = (uint32_t*)(memory + (sizeof(p_queue_item_t) * size));
-	memset(queue->map, 0xFF, size * sizeof(uint32_t));
-	memset(queue->items, 0, size * sizeof(p_queue_item_t));
+	for (uint32_t i = 0; i < size; i++) {
+		queue->map[i] = 0xFFFFFFFF;
+	}
 }
 
 void p_queue_free(p_queue_t* queue) {

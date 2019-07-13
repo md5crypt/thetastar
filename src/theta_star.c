@@ -55,7 +55,10 @@ uint32_t* theta_star(grid_t* grid, uint32_t start, uint32_t goal, double opt) {
 	}
 	p_queue_t queue;
 	node_info_t* node_info = (node_info_t*)malloc(grid->xsize * grid->ysize * sizeof(node_info_t));
-	memset(node_info, 0xFF, grid->xsize * grid->ysize * sizeof(node_info_t));
+	for (uint32_t i = 0; i < grid->xsize * grid->ysize; i++) {
+		node_info[i].parent = 0xFFFFFFFF;
+		node_info[i].weight = 0xFFFFFFFF;
+	}
 	p_queue_create(&queue, grid->xsize * grid->ysize);
 	uint32_t goal_x = goal % grid->xsize;
 	uint32_t goal_y = goal / grid->xsize;

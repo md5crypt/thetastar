@@ -1,6 +1,6 @@
 CC := emcc
 
-CFLAGS := -Wall -Wextra -std=c11 -O3 -DNDEBUG
+CFLAGS := -Wall -Wextra -std=c11 -O3 -DNDEBUG -fno-builtin-memset
 
 OUTDIR := build
 DEMODIR := demo
@@ -42,4 +42,4 @@ demo: ./node_modules $(OUTDIR)/thetastar.wasm
 clean:
 	rm -rf $(OUTDIR)
 
-include $(patsubst %.bc,%.d,$(OBJECTS))
+-include $(patsubst %.bc,%.d,$(OBJECTS))

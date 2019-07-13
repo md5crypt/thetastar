@@ -138,6 +138,9 @@ async function main() {
 		const goal = thetaStar.findClosest(end[0], end[1])
 		const timeStart = performance.now()
 		const path = thetaStar.findPath(start, goal, opt)
+		if (path === null) {
+			throw new Error("path not found")
+		}
 		samples.push(performance.now() - timeStart)
 		const image = ctx.createImageData(currentImageData)
 		image.data.set(currentImageData.data)

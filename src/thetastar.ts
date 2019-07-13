@@ -21,7 +21,6 @@ interface WasmEnv {
 	memory: WebAssembly.Memory
 	malloc: (size: uint32_t) => void_t
 	free: (ptr: void_t) => void
-	memset: (ptr: void_t, value: uint32_t, size: uint32_t) => void_t
 }
 
 interface WasmExports {
@@ -112,8 +111,7 @@ export class ThetaStar {
 		const env: WasmEnv = {
 			memory,
 			malloc: size => heap.malloc(size),
-			free: ptr => heap.free(ptr),
-			memset: (ptr, value, size) => ((new Uint8Array(memory.buffer)).fill(value, ptr, ptr + size), ptr)
+			free: ptr => heap.free(ptr)
 		}
 		const callback = (result: WebAssembly.WebAssemblyInstantiatedSource) => {
 			const exports = result.instance.exports as WasmExports
@@ -146,6 +144,9 @@ export class ThetaStar {
 			throw new Error("no image data loaded")
 		}
 		const ptr = this.exports.theta_star(this.imageData, start, goal, opt)
+		if (ptr == 0) {
+			return null
+		}
 		const u32 = new Uint32Array(this.memory)
 		const path: number[] = []
 		let current = ptr / 4
