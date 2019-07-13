@@ -1,0 +1,13 @@
+{
+  "name": "thetastar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^16.3.0",
+    "typescript": "^3.5.3",
+    "tslint": "^5.18.0"
+  }
+}
