@@ -8,7 +8,7 @@ The output `.wasm` file is around 4kB.
 
 ## Online demo
 
-You can find an interactive demo running directly from git here: https://md5crypt.github.io/thetastart/
+You can find an interactive demo running directly from git here: https://md5crypt.github.io/thetastar/
 
 ## Building
 
